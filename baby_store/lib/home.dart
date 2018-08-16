@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 
 import 'model/data.dart';
 import 'model/product.dart';
+import 'supplemental/asymmetric_view.dart';
 
 class HomePage extends StatelessWidget {
   // TODO: Make a collection of cards (102)
@@ -14,6 +15,8 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       // TODO: Add app bar (102)
       appBar: AppBar(
+        // brightness: Brightness.dark,
+        brightness: Brightness.light,
         // TODO: Add buttons and title (102)
         leading: IconButton(
           icon: Icon(
@@ -48,18 +51,12 @@ class HomePage extends StatelessWidget {
         ],
       ),
       // TODO: Add a grid view (102)
-      body: GridView.count(
-        crossAxisCount: 2,
-        padding: EdgeInsets.all(16.0),
-        childAspectRatio: 8.0 / 9.0,
-        // TODO: Build a grid of cards (102)
-        children: _buildGridCards(context),
-      ),
+      body: AsymmetricView(products: getProducts(Category.all)),
     );
   }
 
   // TODO: Make a collection of cards (102)
-  List<Card> _buildGridCards(BuildContext context) {
+/*   List<Card> _buildGridCards(BuildContext context) {
     List<Product> products = getProducts(Category.all);
 
     if (products == null || products.isEmpty) {
@@ -67,16 +64,17 @@ class HomePage extends StatelessWidget {
     }
 
     final ThemeData theme = Theme.of(context);
-    
+
     final NumberFormat formatter = NumberFormat.simpleCurrency(
         locale: Localizations.localeOf(context).toString());
 
     return products.map((product) {
       return Card(
         // TODO: Adjust card heights (103)
+        // elevation: 0.0,
         child: Column(
           // TODO: Center items on the card (103)
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             AspectRatio(
               aspectRatio: 18 / 11,
@@ -92,18 +90,21 @@ class HomePage extends StatelessWidget {
                 padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
                 child: Column(
                   // TODO: Align labels to the bottom and center (103)
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     // TODO: Handle overflowing labels (103)
                     Text(
-                      product.name,
-                      style: theme.textTheme.title,
+                      product == null ? '' : product.name,
+                      style: theme.textTheme.button,
+                      softWrap: false,
+                      overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                     ),
-                    SizedBox(height: 8.0),
+                    SizedBox(height: 4.0),
                     Text(
-                      formatter.format(product.price),
-                      style: theme.textTheme.body2,
+                      product == null ? '' : formatter.format(product.price),
+                      style: theme.textTheme.caption,
                     ),
                   ],
                 ),
@@ -113,6 +114,5 @@ class HomePage extends StatelessWidget {
         ),
       );
     }).toList();
-  }
-
+  } */
 }

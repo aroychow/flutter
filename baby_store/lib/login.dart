@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'colors.dart';
+
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -20,34 +22,39 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 80.0),
             Column(
               children: <Widget>[
-                Image.asset('assets/basan.png'),
+                Image.asset('assets/basan.png',
+                // color: kBasanBackgroundWhite,
+                ),
                 SizedBox(height: 16.0),
                 Text('Basan Clothing'),
               ],
             ),
             SizedBox(height: 120.0),
             // TODO: Wrap Username with PrimaryColorOverride (103)
-            // TODO: Remove filled: true values (103)
-            // TODO: Wrap Password with PrimaryColorOverride (103)
-            // TODO: Add TextField widgets (101)
             // [Name]
-            TextField(
-              controller: _usernameController,
-              decoration: InputDecoration(
-                filled: true,
-                labelText: 'Username',
+            PrimaryColorOverride(
+              color: kBasanBrown900,
+              // color: kBasanAltYellow,
+              child: TextField(
+                controller: _usernameController,
+                decoration: InputDecoration(
+                  labelText: 'Username',
+                ),
               ),
             ),
             // spacer
             SizedBox(height: 12.0),
+            // TODO: Wrap Password with PrimaryColorOverride (103)
             // [Password]
-            TextField(
-              controller: _passwordController,
-              decoration: InputDecoration(
-                filled: true,
-                labelText: 'Password',
+            PrimaryColorOverride(
+              color: kBasanBrown900,
+              // color: kBasanAltYellow,
+              child: TextField(
+                controller: _passwordController,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                ),
               ),
-              obscureText: true,
             ),
             // TODO: Add button bar (101)
             ButtonBar(
@@ -56,6 +63,9 @@ class _LoginPageState extends State<LoginPage> {
                 // TODO: Add buttons (101)
                 FlatButton(
                   child: Text('CANCEL'),
+                  shape: BeveledRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(7.0)),
+                  ),
                   onPressed: () {
                     // TODO: Clear the text fields (101)
                     _usernameController.clear();
@@ -66,6 +76,10 @@ class _LoginPageState extends State<LoginPage> {
                 // TODO: Add a beveled rectangular border to NEXT (103)
                 RaisedButton(
                   child: Text('NEXT'),
+                  elevation: 4.0,
+                  shape: BeveledRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(7.0)),
+                  ),
                   onPressed: () {
                     // TODO: Show the next page (101)
                     Navigator.pop(context);
@@ -81,3 +95,18 @@ class _LoginPageState extends State<LoginPage> {
 }
 
 // TODO: Add PrimaryColorOverride (103)
+class PrimaryColorOverride extends StatelessWidget {
+  const PrimaryColorOverride({Key key, this.color, this.child})
+      : super(key: key);
+
+  final Color color;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Theme(
+      child: child,
+      data: Theme.of(context).copyWith(primaryColor: color),
+    );
+  }
+}
